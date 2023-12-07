@@ -1,0 +1,172 @@
+.logout-button {
+  margin-right: 5px;
+}
+
+.product-card {
+  height: 290px;
+  width: 200px;
+}
+
+.products-cards-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.product-image {
+  height: 200px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.cart-label {
+  margin-right: 30px;
+  position: relative;
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+  padding: 0 10px 0 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.label-circle {
+  position: absolute;
+  right: -12px;
+  top: -12px;
+  background: #0c0;
+  color: white;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.price-qty {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px 0 10px;
+}
+
+.side-navbar {
+  position: absolute;
+  width: 37%;
+  max-width: 500px;
+  min-width: 400px;
+  height: 100vh;
+  z-index: 2;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-100%);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+}
+
+.nav-open {
+  transform: translateX(0);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.cart-item {
+  width: 90%;
+  border: 2px solid #0d6efd;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
+  .buttons-container {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    .quantity-label {
+      border: 1px solid #0d6efd;
+      border-radius: 5px;
+      padding: 5px;
+      color: #0d6efd;
+      margin: 0 5px 0 5px;
+    }
+  }
+}
+
+.control-button {
+  font-size: 20px;
+  color: #0d6efd;
+}
+
+.place-order-button {
+  background-color: #0c0;
+  margin-bottom: 10px;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+.my-orders-button {
+  width: 130px;
+}
+
+.my-order-popup {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transition: all 0.3s ease-in-out;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  z-index: 3;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.popup-opened {
+  opacity: 1;
+  transform: scale(5) translate(-10%, -10%);
+}
+
+.popup-product-image {
+  height: 60px;
+}
+
+.popup-image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.popup-content {
+  h4{
+    font-size: 5px;
+    margin: 0;
+  }
+}
