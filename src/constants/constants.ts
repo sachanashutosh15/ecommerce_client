@@ -1,1 +1,1 @@
-export const serverBaseUrl = "http://localhost:3001";
+export const serverBaseUrl = "https://e-com-backend-five.vercel.app";
