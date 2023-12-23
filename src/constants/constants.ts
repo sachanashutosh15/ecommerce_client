@@ -1,1 +1,1 @@
-export const serverBaseUrl = "https://e-com-backend-five.vercel.app";
+export const serverBaseUrl = "https://back-end-e-commerce.vercel.app";
