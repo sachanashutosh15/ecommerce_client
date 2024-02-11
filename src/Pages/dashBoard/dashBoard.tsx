@@ -438,7 +438,7 @@ function MyOrderCard(
     orderDetails: any,
     setMyOrderPopup: any
   }) {
-  const productDetails = orderDetails.productDetails[0];
+  const productDetails = orderDetails.productDetails??[0];
   return (
     <div
       className="cart-item"
