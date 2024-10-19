@@ -52,7 +52,7 @@ function DashBoard() {
 
   const fetchProductsList = async () => {
     try {
-      const storedToken = Cookies.get('token'); 
+      const storedToken = Cookies.get('token');
       let response: any;
       try {
         response = await fetch(`${constants.serverBaseUrl}/inventory/getAll`, {
@@ -61,7 +61,7 @@ function DashBoard() {
             "Authorization": `Bearer ${storedToken}`
           }
         })
-      } catch(error: any) {
+      } catch (error: any) {
         throw error.message
       }
       const apiResponse: any = await response.json();
@@ -91,7 +91,7 @@ function DashBoard() {
             "Authorization": `Bearer ${storedToken}`
           }
         })
-      } catch(error: any) {
+      } catch (error: any) {
         throw error.message;
       }
       const apiResponse = await response.json();
@@ -104,7 +104,7 @@ function DashBoard() {
       } else {
         window.alert("Not able to fetch user details");
       }
-    } catch(error: any) {
+    } catch (error: any) {
       console.log(error)
       window.alert(error.message);
     }
@@ -148,7 +148,7 @@ function DashBoard() {
     <>
       <MyOrderPopUp popupInfo={myOrderPopup}></MyOrderPopUp>
       <SideMenu menuStatus={sideMenu.cartMenu}>
-        <CartMenuContent cartInfo={cartInfo} setCartInfo={ setCartInfo } userInfo={userInfo} />
+        <CartMenuContent cartInfo={cartInfo} setCartInfo={setCartInfo} userInfo={userInfo} />
       </SideMenu>
       <SideMenu menuStatus={sideMenu.myOrdersMenu}>
         <MyOrdersMenuContent
@@ -158,29 +158,29 @@ function DashBoard() {
       </SideMenu>
       {
         sideMenu.cartMenu || sideMenu.myOrdersMenu ?
-        <div
-          className="overlay"
-          onClick={() => {
-            toggleSideMenu({
-              cartMenu: false,
-              myOrdersMenu: false,
-            })
-          }}
-        >
-        </div>: "" 
+          <div
+            className="overlay"
+            onClick={() => {
+              toggleSideMenu({
+                cartMenu: false,
+                myOrdersMenu: false,
+              })
+            }}
+          >
+          </div> : ""
       }
       {
         myOrderPopup.isOpen ?
-        <div
-          className="popup-overlay"
-          onClick={() => {
-            setMyOrderPopup({
-              ...myOrderPopup,
-              isOpen: false,
-            })
-          }}
-        >
-        </div>: "" 
+          <div
+            className="popup-overlay"
+            onClick={() => {
+              setMyOrderPopup({
+                ...myOrderPopup,
+                isOpen: false,
+              })
+            }}
+          >
+          </div> : ""
       }
       <Navbar className="bg-body-tertiary">
         <Container>
@@ -196,7 +196,7 @@ function DashBoard() {
           onClick={toggleMyOrdersMenu}
         >My Orders</span>
         <span className="cart-label" onClick={toggleCartMenu}>
-          { Object.keys(cartInfo).length > 0 ?
+          {Object.keys(cartInfo).length > 0 ?
             <div className="label-circle">{Object.keys(cartInfo).length}</div>
             : <></>
           }
@@ -209,7 +209,7 @@ function DashBoard() {
           <ProductCard
             key={idx}
             productInfo={product}
-            functions={{addToCart: addToCart}}
+            functions={{ addToCart: addToCart }}
           />)}
       </div>
     </>
@@ -229,16 +229,16 @@ function ProductCard(props: any) {
         <span>Price: &#8377;{data.price}</span>
       </div>
       <div className="text-align-center">
-        <Button onClick={() => {addToCart(data)}}>Add To Cart</Button>
+        <Button onClick={() => { addToCart(data) }}>Add To Cart</Button>
       </div>
     </div>
-  ) 
+  )
 }
 
-function SideMenu( { children, menuStatus }: { children: ReactNode, menuStatus: boolean }) {
+function SideMenu({ children, menuStatus }: { children: ReactNode, menuStatus: boolean }) {
   return (
     <div className={`side-navbar ${menuStatus ? "nav-open" : ""}`}>
-      { children }
+      {children}
     </div>
   )
 }
@@ -248,7 +248,7 @@ function CartMenuContent(
     cartInfo,
     setCartInfo,
     userInfo
-  }: { 
+  }: {
     cartInfo: any,
     setCartInfo: any,
     userInfo: any
@@ -268,7 +268,7 @@ function CartMenuContent(
       ordersList = ordersList.filter((order) => order.quantity > 0);
       console.log(ordersList);
       const storedToken = Cookies.get('token');
-      let response : any;
+      let response: any;
       try {
         response = await fetch(`${constants.serverBaseUrl}/orders/createNew`, {
           method: "POST",
@@ -289,7 +289,7 @@ function CartMenuContent(
         window.alert("Something went wrong. Order wasn't placed")
       }
       console.log(response);
-    } catch(error: any) {
+    } catch (error: any) {
       console.log(error);
     }
   }
@@ -297,23 +297,23 @@ function CartMenuContent(
   return (
     <>
       <h3>Your Cart</h3>
-      { cartItemsList.map((cartItem: any, idx: number) =>
+      {cartItemsList.map((cartItem: any, idx: number) =>
         <CartItemCard key={idx} cartItem={cartItem} setCartInfo={setCartInfo} />)
       }
       {
         cartItemsList.length > 0 ?
-        (isOrderPlacable ?
-          <button
-            className="place-order-button"
-            onClick={placeOrder}
-          >Place Order</button> : ""
-        ) : <h4>Your Cart is empty</h4>
+          (isOrderPlacable ?
+            <button
+              className="place-order-button"
+              onClick={placeOrder}
+            >Place Order</button> : ""
+          ) : <h4>Your Cart is empty</h4>
       }
     </>
   )
 }
 
-function CartItemCard({ cartItem, setCartInfo }: {cartItem: any, setCartInfo: any}) {
+function CartItemCard({ cartItem, setCartInfo }: { cartItem: any, setCartInfo: any }) {
   const decreaseQuantity = () => {
     if (cartItem.requestedQuantity > 1) {
       updateCartInfo(cartItem.requestedQuantity - 1);
@@ -322,7 +322,7 @@ function CartItemCard({ cartItem, setCartInfo }: {cartItem: any, setCartInfo: an
     }
   }
   const increaseQuantity = () => {
-    if(cartItem.requestedQuantity < cartItem.quantity) {
+    if (cartItem.requestedQuantity < cartItem.quantity) {
       updateCartInfo(cartItem.requestedQuantity + 1);
     } else {
       window.alert("Quantity can't be increased further");
@@ -347,23 +347,23 @@ function CartItemCard({ cartItem, setCartInfo }: {cartItem: any, setCartInfo: an
       const updatedInfo = previousInfo;
       delete updatedInfo[cartItem._id]
       console.log(updatedInfo);
-      return {...updatedInfo};
+      return { ...updatedInfo };
     })
   }
   return (
     <div className="cart-item">
       <div className="item-details">
-        <label>Item Name: {cartItem.name}</label><br/>
-        <label>Price: &#8377;{cartItem.price}</label><br/>
+        <label>Item Name: {cartItem.name}</label><br />
+        <label>Price: &#8377;{cartItem.price}</label><br />
         <label>Weight: {cartItem.weight} gm</label>
       </div>
       <div className="buttons-container">
-        <Button onClick={() => {removeItem(cartItem)}}>Remove Item</Button>
+        <Button onClick={() => { removeItem(cartItem) }}>Remove Item</Button>
         <div>
           <i className="bi bi-dash control-button"
             onClick={decreaseQuantity}
           ></i>
-          <label className="quantity-label">Quantity: { cartItem.requestedQuantity }</label>
+          <label className="quantity-label">Quantity: {cartItem.requestedQuantity}</label>
           <i className="bi bi-plus-lg control-button"
             onClick={increaseQuantity}
           ></i>
@@ -374,14 +374,14 @@ function CartItemCard({ cartItem, setCartInfo }: {cartItem: any, setCartInfo: an
 }
 
 function MyOrdersMenuContent(
-  { 
+  {
     menuStatus,
     setMyOrderPopup
   }:
-  {
-    menuStatus: boolean,
-    setMyOrderPopup: any
-  }) {
+    {
+      menuStatus: boolean,
+      setMyOrderPopup: any
+    }) {
 
   const [myOrdersList, setMyOrdersList] = useState<any[]>([]);
 
@@ -394,17 +394,17 @@ function MyOrdersMenuContent(
       }
     }).then(res => {
       res.json()
-      .then((result: any) => {
-        console.log(result);
-        if (result.data) {
-          setMyOrdersList([...result?.data]);
-        } else {
-          return;
-        }
-      }).catch(error => {
-        console.log(error);
-        window.alert(error.message)
-      })
+        .then((result: any) => {
+          console.log(result);
+          if (result.data) {
+            setMyOrdersList([...result?.data]);
+          } else {
+            return;
+          }
+        }).catch(error => {
+          console.log(error);
+          window.alert(error.message)
+        })
     }).catch(error => {
       console.log(error);
       window.alert(error.message)
@@ -416,14 +416,14 @@ function MyOrdersMenuContent(
       <h3>Your Orders</h3>
       {
         myOrdersList.length > 0 ?
-        myOrdersList.map(
-          (orderDetails: any, idx: number) => 
-          <MyOrderCard
-            setMyOrderPopup={setMyOrderPopup}
-            key={idx}
-            orderDetails={orderDetails}
-          />
-        ): <h4>No orders to show</h4>
+          myOrdersList.map(
+            (orderDetails: any, idx: number) =>
+              <MyOrderCard
+                setMyOrderPopup={setMyOrderPopup}
+                key={idx}
+                orderDetails={orderDetails}
+              />
+          ) : <h4>No orders to show</h4>
       }
     </>
   )
@@ -434,25 +434,27 @@ function MyOrderCard(
     orderDetails,
     setMyOrderPopup
   }:
-  {
-    orderDetails: any,
-    setMyOrderPopup: any
-  }) {
-  const productDetails = orderDetails.productDetails??[0];
+    {
+      orderDetails: any,
+      setMyOrderPopup: any
+    }) {
+  const productDetails = orderDetails.productDetails?.[0];
   return (
     <div
       className="cart-item"
-      onClick={() => {setMyOrderPopup({
-        isOpen: true,
-        data: orderDetails
-      })}}
+      onClick={() => {
+        setMyOrderPopup({
+          isOpen: true,
+          data: orderDetails
+        })
+      }}
     >
       <div className="item-details">
-        <label>Item Name: {productDetails.name}</label><br/>
-        <label>Price: &#8377;{productDetails.price}</label><br/>
-        <label>Weight: {productDetails.weight} gm</label><br/>
-        <label>Quantity: { orderDetails.quantity }</label><br/>
-        <label>Status: { orderDetails.status }</label>
+        <label>Item Name: {productDetails.name}</label><br />
+        <label>Price: &#8377;{productDetails.price}</label><br />
+        <label>Weight: {productDetails.weight} gm</label><br />
+        <label>Quantity: {orderDetails.quantity}</label><br />
+        <label>Status: {orderDetails.status}</label>
       </div>
     </div>
   )
@@ -460,9 +462,9 @@ function MyOrderCard(
 
 function MyOrderPopUp(
   { popupInfo }:
-  { popupInfo: any }
+    { popupInfo: any }
 ) {
-  const getClassName =() => {
+  const getClassName = () => {
     return "popup-opened";
   }
   let productDetails;
@@ -480,7 +482,7 @@ function MyOrderPopUp(
         <h4>Price: &#8377;{productDetails?.price}</h4>
         <h4>Weight: {productDetails?.weight} gm</h4>
         <h4>Quantity: {popupInfo?.data?.quantity}</h4>
-        <h4>Status: { popupInfo?.data?.status }</h4>
+        <h4>Status: {popupInfo?.data?.status}</h4>
       </div>
     </div>
   )
