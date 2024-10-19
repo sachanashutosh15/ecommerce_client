@@ -3,18 +3,19 @@ import "./login.scss"
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/esm/Button";
 import { Link } from "react-router-dom";
-import constants from "../../constants";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../contexts/userContext";
 
 function Login() {
 
+  const serverBaseUrl = process.env.REACT_APP_BASE_URL;
+
   const { updateUserDetails } = useUser();
 
   const navigate = useNavigate();
 
-  const [ loginFormData, setFormData ] = React.useState({
+  const [loginFormData, setFormData] = React.useState({
     email: "",
     password: ""
   })
@@ -40,7 +41,7 @@ function Login() {
       }
       let res: any;
       try {
-        res = await fetch(`${constants.serverBaseUrl}/auth/signin`, {
+        res = await fetch(`${serverBaseUrl}/auth/signin`, {
           method: "POST",
           headers: {
             "content-type": "application/json"
@@ -53,7 +54,7 @@ function Login() {
         };
       }
       const response = await res.json()
-      if(response.data) {
+      if (response.data) {
         console.log(response.data);
         updateUserDetails(response.data.userInfo);
         const token = response.data.token;
@@ -70,44 +71,44 @@ function Login() {
 
   return (
     // <userContext.Provider value={userDetails}>
-      <div className="login-page">
-        <div className="login-card">
-          <Form className="form-container" onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                onChange={handleChange}
-                name="email"
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
+    <div className="login-page">
+      <div className="login-card">
+        <Form className="form-container" onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              onChange={handleChange}
+              name="email"
+            />
+            <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text>
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={handleChange}
-                name="password"
-              />
-            </Form.Group>
-            {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+              name="password"
+            />
+          </Form.Group>
+          {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Check me out" />
             </Form.Group> */}
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
-          <span>New user?</span>
-          <Link to="/signup">
-            <label className="signup-button" >Sign Up</label>
-          </Link>
-        </div>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+        <span>New user?</span>
+        <Link to="/signup">
+          <label className="signup-button" >Sign Up</label>
+        </Link>
       </div>
+    </div>
     // </userContext.Provider>
   )
 }

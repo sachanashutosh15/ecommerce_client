@@ -3,10 +3,11 @@ import "./signup.scss"
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import constants from "../../constants";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
+
+  const serverBaseUrl = process.env.REACT_APP_BASE_URL;
 
   const navigate = useNavigate();
 
@@ -25,32 +26,32 @@ function SignUp() {
       window.alert("Please fill all the fields!!!");
       return;
     }
-    fetch(`${constants.serverBaseUrl}/auth/signup`, {
+    fetch(`${serverBaseUrl}/auth/signup`, {
       method: "POST",
       headers: {
         "content-type": "application/json"
       },
       body: JSON.stringify(userInfo)
     })
-    .then(res => {
-      res.json()
-      .then((response) => {
-        console.log(response);
-        if (response.data) {
-          window.alert("Successfully created the user, you can now login");
-          navigate('/login');
-        }
-      }).catch(error => {
-        console.log("Error => ", error.message);
+      .then(res => {
+        res.json()
+          .then((response) => {
+            console.log(response);
+            if (response.data) {
+              window.alert("Successfully created the user, you can now login");
+              navigate('/login');
+            }
+          }).catch(error => {
+            console.log("Error => ", error.message);
+          })
+      }).catch((error) => {
+        console.log(error);
+        window.alert("Client app is not able to access server.")
       })
-    }).catch((error) => {
-      console.log(error);
-      window.alert("Client app is not able to access server.")
-    })
   }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setFormData((prevData) => {
       return {
         ...prevData,

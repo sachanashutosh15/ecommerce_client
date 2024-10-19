@@ -5,12 +5,10 @@ import { useNavigate } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import { useUser } from "../../contexts/userContext";
-import constants from "../../constants";
+
+const serverBaseUrl = process.env.REACT_APP_BASE_URL;
 
 function DashBoard() {
-  const { userDetails } = useUser();
-
   const [userInfo, setUserInfo] = React.useState<any>(null);
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
@@ -55,7 +53,7 @@ function DashBoard() {
       const storedToken = Cookies.get('token');
       let response: any;
       try {
-        response = await fetch(`${constants.serverBaseUrl}/inventory/getAll`, {
+        response = await fetch(`${serverBaseUrl}/inventory/getAll`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${storedToken}`
@@ -85,7 +83,7 @@ function DashBoard() {
       const storedToken = Cookies.get('token');
       let response: any;
       try {
-        response = await fetch(`${constants.serverBaseUrl}/auth/getUserDetails`, {
+        response = await fetch(`${serverBaseUrl}/auth/getUserDetails`, {
           method: 'GET',
           headers: {
             "Authorization": `Bearer ${storedToken}`
@@ -270,7 +268,7 @@ function CartMenuContent(
       const storedToken = Cookies.get('token');
       let response: any;
       try {
-        response = await fetch(`${constants.serverBaseUrl}/orders/createNew`, {
+        response = await fetch(`${serverBaseUrl}/orders/createNew`, {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${storedToken}`,
@@ -387,7 +385,7 @@ function MyOrdersMenuContent(
 
   React.useEffect(() => {
     const storedToken = Cookies.get('token');
-    fetch(`${constants.serverBaseUrl}/orders/getMyOrders`, {
+    fetch(`${serverBaseUrl}/orders/getMyOrders`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${storedToken}`

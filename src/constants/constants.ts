@@ -1,1 +1,0 @@
-export const serverBaseUrl = "https://back-end-e-commerce.vercel.app";
