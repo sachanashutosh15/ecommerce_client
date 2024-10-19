@@ -9,7 +9,7 @@ import { useUser } from "../../contexts/userContext";
 
 function Login() {
 
-  const serverBaseUrl = process.env.REACT_APP_BASE_URL;
+  const serverBaseUrl = process.env.REACT_APP_BASE_URL || process.env.SERVER_URL;
 
   const { updateUserDetails } = useUser();
 

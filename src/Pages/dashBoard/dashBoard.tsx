@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
-const serverBaseUrl = process.env.REACT_APP_BASE_URL;
+const serverBaseUrl = process.env.REACT_APP_BASE_URL || process.env.SERVER_URL;
 
 function DashBoard() {
   const [userInfo, setUserInfo] = React.useState<any>(null);

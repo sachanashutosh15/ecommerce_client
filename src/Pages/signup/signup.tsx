@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function SignUp() {
 
-  const serverBaseUrl = process.env.REACT_APP_BASE_URL;
+  const serverBaseUrl = process.env.REACT_APP_BASE_URL || process.env.SERVER_URL;
 
   const navigate = useNavigate();
 
